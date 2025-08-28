@@ -28,7 +28,7 @@ By combining these approaches, the tool provides actionable insights for HR team
 ## Technology Stack
 
 - **Frontend:** React.js, HTML, CSS, Figma (for UI/UX design)  
-- **Backend:** Flask, Python, JavaScript , FastAPI
+- **Backend:** Flask, Python, JavaScript , FastAPI, Scikit-learn
 - **Database:** MongoDB  
 
 ## Features
