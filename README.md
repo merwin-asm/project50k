@@ -40,11 +40,4 @@ By combining these approaches, the tool provides actionable insights for HR team
 - Merwin  
 - Abinand  
 - Steve  
-- Ihsan  
-
-## Setup & Installation
-
-1. Clone the repository:  
-   ```bash
-   git clone <repo-url>
-   cd <project-folder>
+- Ihsan Moosa
