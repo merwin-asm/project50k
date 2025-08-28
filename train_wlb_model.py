@@ -13,14 +13,16 @@ data = pd.read_csv("work_life_balance.csv")
 
 
 X = data[['Age', 'Gender', 'Job_Role', 'Industry', 'Work_Location', 
-          'Stress_Level', 'Mental_Health_Condition', 'Social_Isolation_Rating',
-          'Satisfaction_with_Remote_Work']]
+            "Number_of_Virtual_Meetings",
+          'Hours_Worked_Per_Week']]
 y = data['Work_Life_Balance_Rating']
 
 
-categorical_cols = ['Gender', 'Job_Role', 'Industry', 'Work_Location', 
-                    'Mental_Health_Condition', 'Satisfaction_with_Remote_Work']
-numeric_cols = ['Age', 'Stress_Level', 'Social_Isolation_Rating']
+categorical_cols = ['Gender', 'Job_Role', 'Industry', 'Work_Location',
+            ]
+
+numeric_cols = ['Age',  "Number_of_Virtual_Meetings",
+          'Hours_Worked_Per_Week',"Work_Life_Balance_Rating"]
 
 preprocessor = ColumnTransformer(
     transformers=[
