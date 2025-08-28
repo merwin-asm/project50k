@@ -19,6 +19,10 @@ This tool integrates three different approaches to identify and mitigate workpla
 3. **Real-life Scenario Simulations**  
    - Uses interactive simulations to model real workplace scenarios and gather behavioral insights.
 
+4. **USING AI MODELS**
+   - Traing And use of model to predict work life balance
+   - Traing And use of model to predict wellbeing
+     
 By combining these approaches, the tool provides actionable insights for HR teams and managers to create a more inclusive workplace.
 
 ## Technology Stack
