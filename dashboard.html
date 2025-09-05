@@ -1,0 +1,246 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Employee Satisfaction & Performance Dashboard</title>
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/remixicon/4.6.0/remixicon.min.css" rel="stylesheet">
+  <style>
+    @font-face {
+      font-family: 'AlibabaSans';
+      src: url('https://assets-persist.lovart.ai/agent-static-assets/AlibabaSans-Regular.otf') format('opentype');
+    }
+    body {
+      background-color: #f5f8fa;
+      color: #333;
+      width: 1200px;
+      margin: 0 auto;
+      padding: 20px;
+      font-family: 'AlibabaSans', sans-serif;
+    }
+    .dashboard-container { display: flex; flex-direction: column; gap: 24px; }
+    .header { display: flex; justify-content: space-between; align-items: center; }
+    .header h1 { font-size: 24px; color: #1a73e8; font-weight: bold; }
+    .date-info { color: #666; font-size: 14px; }
+    .top-section { display: flex; gap: 20px; background: white; border-radius: 12px; padding: 24px; box-shadow: 0 2px 10px rgba(0,0,0,0.05); }
+    .metric-card { flex: 1; text-align: center; }
+    .progress-container { position: relative; width: 120px; height: 120px; margin: 0 auto; }
+    .progress-circle { width: 100%; height: 100%; border-radius: 50%; display: flex; align-items: center; justify-content: center; position: relative; }
+    .progress-inner { position: absolute; width: 80%; height: 80%; background: #fff; border-radius: 50%; display: flex; flex-direction: column; align-items: center; justify-content: center; }
+    .progress-value { font-size: 22px; font-weight: bold; }
+    .progress-subtext { font-size: 12px; color: #666; margin-top: 4px; }
+    .middle-section {  gap: 20px; }
+    .panel {  background: white; margin-top:15px; border-radius: 12px; padding: 20px; box-shadow: 0 2px 10px rgba(0,0,0,0.05); }
+    .panel-title { font-size: 16px; font-weight: 500; color: #1a73e8; }
+    .search-bar { display: flex; align-items: center; background: #f5f8fa; border-radius: 8px; padding: 8px 12px; gap: 8px; margin: 10px 0; }
+    .search-bar input { border: none; background: transparent; outline: none; width: 100%; font-size: 14px; }
+    .data-table { width: 100%; border-collapse: collapse; }
+    .data-table th, .data-table td { padding: 10px; font-size: 13px; border-bottom: 1px solid #eee; }
+    .collapsible-header { display: flex; justify-content: space-between; align-items: center; padding: 15px 20px; border-bottom: 1px solid #eee; cursor: pointer; }
+    .collapsible-title { font-size: 16px; font-weight: 500; color: #1a73e8; display: flex; gap: 8px; align-items: center; }
+  </style>
+</head>
+<body>
+  <div class="dashboard-container">
+    <div class="header">
+      <h1>Employee Satisfaction & Performance Dashboard</h1>
+    </div>
+
+    <!-- Top Section -->
+    <div class="top-section">
+      <div class="metric-card">
+        <div class="metric-title">Total Employee Satisfaction</div>
+        <div class="progress-container">
+          <div class="progress-circle progress-blue" id="progress-satisfaction">
+            <div class="progress-inner"><div class="progress-value">0%</div></div>
+          </div>
+        </div>
+      </div>
+      <div class="metric-card">
+        <div class="metric-title">Total Employee Complaints</div>
+        <div class="progress-container">
+          <div class="progress-circle progress-red" id="progress-complaints">
+            <div class="progress-inner"><div class="progress-value">0%</div></div>
+          </div>
+        </div>
+      </div>
+      <div class="metric-card">
+        <div class="metric-title">Total Employee Survey Rating</div>
+        <div class="progress-container">
+          <div class="progress-circle progress-yellow" id="progress-rating">
+            <div class="progress-inner"><div class="progress-value">0</div><div class="progress-subtext">out of 5</div></div>
+          </div>
+        </div>
+      </div>
+      <div class="metric-card">
+        <div class="metric-title">Total Employee Behavior</div>
+        <div class="progress-container">
+          <div class="progress-circle progress-green" id="progress-behavior">
+            <div class="progress-inner"><div class="progress-value">0%</div></div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Middle Section -->
+    <div class="middle-section">
+      <div class="panel">
+        <div class="panel-title">Employee Survey Details</div>
+        <div class="search-bar"><i class="ri-search-line"></i><input id="searchEmployee" type="text" placeholder="Search"></div>
+        <div class="data-container"></div>
+      </div>
+     
+      <div class="panel">
+        <div class="panel-title">Simulation Review</div>
+        <div class="search-bar"><i class="ri-search-line"></i><input id="searchSimulation" type="text" placeholder="Search"></div>
+        <div class="data-container"></div>
+      </div>
+    
+     
+      <div class="panel">
+        <div class="panel-title">Conversation Analysis</div>
+        <div class="search-bar"><i class="ri-search-line"></i><input id="searchConversation" type="text" placeholder="Search"></div>
+        <div class="data-container"></div>
+      </div>
+    </div>
+
+    <!-- Bottom Section -->
+    <div class="bottom-section">
+      <div class="collapsible-header"><div class="collapsible-title"><i class="ri-alert-line"></i>Critical Employee Situations</div></div>
+      <div class="collapsible-content data-container"></div>
+    </div>
+  </div>
+
+<script>
+const API_BASE = "http://localhost:5000"; // Flask server
+
+// ✅ Circular progress update helper
+function setProgress(selector, value, max, color) {
+  const el = document.querySelector(selector);
+  if (!el) return;
+  let percent = (value / max) * 100;
+  let angle = (percent / 100) * 360;
+  el.style.background = `conic-gradient(${color} ${angle}deg, #eee ${angle}deg)`;
+  el.querySelector(".progress-value").textContent = (max === 5 ? value.toFixed(1) : value + "%");
+}
+
+// ✅ Generic table renderer
+function renderTable(containerSelector, data) {
+  const container = document.querySelector(containerSelector);
+  container.innerHTML = "";
+
+  if (!data || data.length === 0) {
+    container.innerHTML = "<p>No data available</p>";
+    return;
+  }
+
+  const keys = Object.keys(data[0]);
+  let html = "<table class='data-table'><thead><tr>";
+  keys.forEach(k => html += `<th>${k}</th>`);
+  html += "</tr></thead><tbody>";
+
+  data.forEach(row => {
+    html += "<tr>";
+    keys.forEach(k => {
+      html += `<td>${row[k] !== undefined ? row[k] : ""}</td>`;
+    });
+    html += "</tr>";
+  });
+
+  html += "</tbody></table>";
+  container.innerHTML = html;
+}
+
+// ================= LOADERS =================
+function loadMetrics() {
+  fetch(`${API_BASE}/api/metrics`)
+    .then(res => res.json())
+    .then(data => {
+      setProgress("#progress-satisfaction", data.satisfaction, 100, "#1a73e8");
+      setProgress("#progress-complaints", data.complaints, 100, "#ff5252");
+      setProgress("#progress-rating", data.survey_rating, 5, "#ffc107");
+      setProgress("#progress-behavior", data.behavior, 100, "#4caf50");
+    });
+}
+
+function loadSurveys(query = "") {
+  fetch(`${API_BASE}/api/surveys`)
+    .then(res => res.json())
+    .then(data => {
+      if (query) {
+        data = data.filter(row =>
+          Object.values(row).some(v =>
+            String(v).toLowerCase().includes(query.toLowerCase())
+          )
+        );
+      }
+      renderTable(".panel:nth-child(1) .data-container", data);
+    });
+}
+
+function loadSimulations(query = "") {
+  fetch(`${API_BASE}/api/simulations`)
+    .then(res => res.json())
+    .then(data => {
+      if (query) {
+        data = data.filter(row =>
+          Object.values(row).some(v =>
+            String(v).toLowerCase().includes(query.toLowerCase())
+          )
+        );
+      }
+      renderTable(".panel:nth-child(2) .data-container", data);
+    });
+}
+
+function loadConversations(query = "") {
+  fetch(`${API_BASE}/api/conversations`)
+    .then(res => res.json())
+    .then(data => {
+      if (query) {
+        data = data.filter(row =>
+          Object.values(row).some(v =>
+            String(v).toLowerCase().includes(query.toLowerCase())
+          )
+        );
+      }
+      renderTable(".panel:nth-child(3) .data-container", data);
+    });
+}
+
+function loadCritical(query = "") {
+  fetch(`${API_BASE}/api/critical`)
+    .then(res => res.json())
+    .then(data => {
+      if (query) {
+        data = data.filter(row =>
+          Object.values(row).some(v =>
+            String(v).toLowerCase().includes(query.toLowerCase())
+          )
+        );
+      }
+      renderTable(".collapsible-content", data);
+    });
+}
+
+// ================= INIT =================
+document.addEventListener("DOMContentLoaded", () => {
+  loadMetrics();
+  loadSurveys();
+  loadSimulations();
+  loadConversations();
+  loadCritical();
+
+  document.getElementById("searchEmployee")
+    ?.addEventListener("keyup", e => { if (e.key === "Enter") loadSurveys(e.target.value); });
+
+  document.getElementById("searchSimulation")
+    ?.addEventListener("keyup", e => { if (e.key === "Enter") loadSimulations(e.target.value); });
+
+  document.getElementById("searchConversation")
+    ?.addEventListener("keyup", e => { if (e.key === "Enter") loadConversations(e.target.value); });
+});
+</script>
+</body>
+</html>
+

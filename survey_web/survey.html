@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Employment Survey</title>
+    <link rel="icon" href="/Projects/Datasprint/images/surveyico.png">
+    <link rel="stylesheet" href="style.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Libertinus+Serif+Display&family=Roboto:ital,wght@0,100..900;1,100..900&family=Sora:wght@100..800&display=swap" rel="stylesheet">
+</head>
+<body>
+    <div class="container">
+        <form id="surveyForm">
+        <h1>Employment Survey</h1>
+        <hr style="border : none ; height:1px ;width:60vw;position:  absolute; margin-top: 100px ; background-color: #808080;" >
+
+            <!--Form -->
+            <label class="fields" id="lab1">Name</label>
+            <input class="inputf" id="in1" type="text" required >
+
+            <label class="fields" id="lab2">Age</label>
+            <input class="inputf" id="in2" type="number"  min="18" max="99" required >
+
+            <label class="fields" id="lab3">Gender</label>
+            <input class="inputf" id="in3" type="text" required  >
+            
+            <label class="fields" id="lab4">Job Role</label>
+            <input class="inputf" id="in4" type="text" required >
+
+            <label class="fields" id="lab5">Years At Company</label>
+            <input class="inputf" id="in5" type="text" required >
+
+            <label class="fields" id="lab14">Number of Virtual Meetings</label>
+            <input class="inputf" id="in14" type="text">
+
+            <label class="fields" id="lab15">Employment Type</label>
+            <input class="inputf" id="in15" type="text" pattern="Remote|In-Office" required placeholder="Remote or In-Office">
+
+            <label class="fields" id="lab6">Work Hours Per Week</label>
+            <input class="inputf" id="in6" type="text" required >
+
+            <label class="fields" id="lab7">Performance Rating</label>
+            <input class="inputf" id="in7" type="text" required placeholder="(1-5)" min="1" max="5" >
+
+            <label class="fields" id="lab8">Job Satisfaction</label>
+            <input class="inputf" id="in8" type="text" required placeholder="(1-5)" min="1" max="5">
+            
+            <label class="fields" id="lab9">Stress Level</label>
+            <input class="inputf" id="in9" type="text" required placeholder="(1-5)" min="1" max="5">
+
+            <label class="fields" id="lab10">Work Life Balance</label>
+            <input class="inputf" id="in10" type="text" required placeholder="(1-5)" min="1" max="5">
+
+            <label class="fields" id="lab11">Experience Bias</label>
+            <input class="inputf" id="in11" type="text" required placeholder="Yes or No" pattern="Yes|No">
+
+            <label class="fields" id="lab12">Inclusion Score</label>
+            <input class="inputf" id="in12" type="text" required placeholder="(1-5)" min="1" max="5">
+
+            <label class="fields" id="lab13">Feedback/Suggestions</label>
+            <textarea id="comment" rows="3" cols="25"></textarea>
+            <br>
+            <br>
+            <input type="reset" id="reset"> 
+            <input type="submit" id="sub">
+        </form>
+    </div>
+    
+    <script>
+        document.getElementById("surveyForm").addEventListener("submit", async function(e) {
+            e.preventDefault();
+
+            const data = {
+                name: document.getElementById("in1").value,
+                age: document.getElementById("in2").value,
+                gender: document.getElementById("in3").value,
+                job_role: document.getElementById("in4").value,
+                years_at_company: document.getElementById("in5").value,
+                virtual_meetings: document.getElementById("in14").value,
+                employment_type: document.getElementById("in15").value,
+                work_hours: document.getElementById("in6").value,
+                performance_rating: document.getElementById("in7").value,
+                job_satisfaction: document.getElementById("in8").value,
+                stress_level: document.getElementById("in9").value,
+                work_life_balance: document.getElementById("in10").value,
+                experience_bias: document.getElementById("in11").value,
+                inclusion_score: document.getElementById("in12").value,
+                feedback: document.getElementById("comment").value
+            };
+
+            try {
+                const response = await fetch("http://localhost:8900/survey", {
+                    method: "POST",
+                    headers: {
+                        "Content-Type": "application/json",
+                        ...data   // put all fields into headers
+                    },
+                    body: JSON.stringify(data) // also send as JSON body
+                });
+
+                if (response.ok) {
+                    alert("Survey submitted successfully!");
+                    document.getElementById("surveyForm").reset();
+                } else {
+                    alert("Failed to submit survey.");
+                }
+            } catch (err) {
+                alert("Error: " + err.message);
+            }
+            
+        });
+    </script>
+</body>
+</html>
+
