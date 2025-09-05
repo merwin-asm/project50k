@@ -1,0 +1,11 @@
+pymongo
+flask 
+flask-cors
+pandas 
+joblib 
+scikit-learn 
+numpy
+fastapi 
+uvicorn 
+google-generativeai
+slack-sdk
