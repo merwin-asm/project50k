@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Workspace Simulation</title>
+
+    <script src="https://aframe.io/releases/1.7.0/aframe.min.js"></script>
+</head>
+<body>
+    <a-scene>
+        <a-assets>
+            <a-asset-item src="assets/woman.gltf" id="woman"></a-asset-item>
+            <a-asset-item src="assets/scene.gltf" id="office"></a-asset-item>
+            <a-asset-item src="assets/room-texture.mtl" id="office-mat"></a-asset-item>
+            <a-asset-item src="assets/office_room.obj" id="office"></a-asset-item>
+            <a-asset-item src="assets/office-corner/scene.gltf" id="office-corner"></a-asset-item>
+        </a-assets>
+
+        <a-plane scale="50 50 1" color="#212121" rotation="-90 0 0"></a-plane>
+
+        <a-sky color="#666464"></a-sky>
+        <a-entity gltf-model="#office-corner" position="0 0 -1" scale="0.3 0.3 0.3" rotation="0 180 0"></a-entity>
+        <a-entity gltf-model="#woman" material="color:#2ECC71; shaders: flat;" scale="0.7 0.7 0.7" position="0 4 -1"></a-entity>
+        <a-plane color="#212121" position="0.38 1.57 -1" height="0.23" width="0.27" rotation="0 -36 0" id="a-plane-form">
+            <a-text value="" width="3" align="center" position="0 0 0"></a-text>
+        </a-plane>
+
+        <a-plane scale="0.75 10 0.2"></a-plane>
+
+        <a-entity>
+            <a-camera look-controls wasd-controls="enabled:false" camera-sync>
+                <a-plane width="0.75" height="0.075" position="0 -0.35 -0.5" color="#666464">
+                    <a-text value="input" width="1" color="#9E9E9E" align="center" baseline="center" id="input"></a-text>
+                </a-plane>
+            </a-camera>
+        </a-entity>
+    </a-scene>
+</body>
+</html>

@@ -1,0 +1,192 @@
+/*Colours hex code
+#ffffff
+#f8f8f8*/
+
+body{
+    background-color: #f8f8f8;
+}
+.container{
+    position:relative;
+    margin-top: 70px;
+    background-color: #ffffff;
+    height: 270vh;
+    width: 60vw;
+    margin-left: auto;
+    margin-right: auto;
+    
+}
+
+h1{
+    position: absolute;
+    margin-top:40px;
+    margin-left: 40px;
+    font-family: "Libertinus Serif Display";
+    font-weight: 400;
+    font-size: 40px;
+    font-style: normal;
+}
+
+.fields{
+    position: absolute;
+    font-family: "Roboto", sans-serif;
+   
+    margin-left: 40px;
+    font-size: 25px;
+}
+
+.inputf{
+    position: absolute;
+    background-color: #f8f8f8;
+    border: black none;
+    font-size: 25px;
+    
+    margin-left:40px ;
+    width: 50vw;
+    height: 40px;
+}
+
+#lab1{
+    margin-top: 130px;
+}
+
+#in1{
+    margin-top: 170px;
+}
+
+
+#lab2{
+    margin-top: 250px;
+}
+#in2{
+    margin-top: 290px;
+}
+
+
+#lab3{
+    margin-top: 370px;
+}
+
+#lab4{
+    margin-top: 490px;
+}
+
+#lab5{
+    margin-top: 610px;
+}
+
+#lab14{
+    margin-top: 730px;
+}
+
+#lab15{
+    margin-top: 850px;
+}
+
+#lab6{
+    margin-top: 970px;
+}
+
+#lab7{
+    margin-top: 1090px;
+}
+
+#lab8{
+    margin-top: 1210px;
+}
+
+#lab9{
+    margin-top: 1330px;
+}
+
+#lab10{
+    margin-top: 1450px;
+}
+
+#lab11{
+    margin-top: 1570px;
+}
+
+
+#lab12{
+    margin-top: 1690px;
+}
+
+
+#lab13{
+    margin-top: 1810px;
+}
+
+
+
+
+
+
+#in3{
+    margin-top: 410px;
+}
+
+#in4{
+    margin-top: 530px;
+}
+
+#in5{
+    margin-top: 650px;
+}
+#in14{
+    margin-top: 770px;
+}
+#in15{
+    margin-top: 890px;
+}
+#in6{
+    margin-top: 1010px;
+}
+#in7{
+    margin-top: 1130px;
+}
+#in8{
+    margin-top: 1250px;
+}
+#in9{
+    margin-top: 1370px;
+}
+#in10{
+    margin-top: 1490px;
+}
+#in11{
+    margin-top: 1610px;
+}
+
+#in12{
+    margin-top: 1730px;
+}
+
+textarea{
+    margin-top: 1850px;
+    margin-left: 40px;
+    height: 150px;
+    width: 400px;
+}
+
+#reset{
+    position: absolute;
+    margin-left:  50px ;
+    height: 50px;
+    width: 80px;
+    background-color: #008CBA;
+    border: none;
+    font-family: "Roboto",sans-serif;
+
+}
+#sub{
+    font-family: "Roboto",sans-serif;
+    border: none;
+    position: absolute;
+    bottom: 2;
+    margin-left: 45vw;
+    height:50px;
+    width: 80px;
+    background-color: #008CBA;
+}
+
+
