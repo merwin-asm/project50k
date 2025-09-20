@@ -1,5 +1,5 @@
 import google.generativeai as genai
-genai.configure(api_key="AIzaSyCiCRk_VPGTwes25_isfa6ZsyIWfRYsDhc")
+genai.configure(api_key="")
 model = genai.GenerativeModel("gemini-2.0-flash")
 def ai(prompt):
     try:
