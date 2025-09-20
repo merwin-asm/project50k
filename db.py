@@ -29,7 +29,7 @@ from datetime import date
     rating = predict_work_life_balance(example_employee)
 """
 
-uri = "mongodb+srv://bringitvit_db_user:UDu8nkyHq6zmXjtR@cluster0.moiglwg.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0"
+uri = ""
 
 # Create a new client and connect to the server
 client = MongoClient(uri, server_api=ServerApi('1'))
